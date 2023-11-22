@@ -66,6 +66,16 @@ def get_prediction(text, model, tokenizer):
 
     #return [{'prob': prob * 100, 'herramienta': id2str[probs.index(prob)]} for prob in probs]
 
+
+modelo_entrenado_file_id = '1dfmrhgnOUPTlJucbuEMuPSTxbJBuFhUQ'
+tokenizer_file_id = '1cQ2lfSfQEOReUJRVzbFVjfV9y0MYkXBB'
+modelo_entrenado_destination_path = 'modelo_entrenado.pth'
+tokenizer_destination_path = 'tokenizer.pth'
+
+download_file(modelo_entrenado_file_id, modelo_entrenado_destination_path)
+download_file(tokenizer_file_id, tokenizer_destination_path)
+loaded_model, loaded_tokenizer = load_model_and_tokenizer()
+
 # Ruta para realizar predicciones
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -77,18 +87,6 @@ def predict():
 
     return jsonify(predictions)
 
-if __name__ == '__main__':
-    modelo_entrenado_file_id = '1dfmrhgnOUPTlJucbuEMuPSTxbJBuFhUQ'
-    tokenizer_file_id = '1cQ2lfSfQEOReUJRVzbFVjfV9y0MYkXBB'
-    modelo_entrenado_destination_path = 'modelo_entrenado.pth'
-    tokenizer_destination_path = 'tokenizer.pth'
-
-    download_file(modelo_entrenado_file_id, modelo_entrenado_destination_path)
-    download_file(tokenizer_file_id, tokenizer_destination_path)
-    #read_file(destination_path)
-
-    # Cargar modelo y tokenizer al iniciar la aplicación
-    loaded_model, loaded_tokenizer = load_model_and_tokenizer()
-
-    # Iniciar la aplicación Flask
-    app.run(port=int(os.environ.get('PORT', 5000)), debug=False)
+@app.route('/')
+def hello():
+    return "Hello world!"
