@@ -90,3 +90,9 @@ def predict():
 @app.route('/')
 def hello():
     return "Hello world!"
+
+# Punto de entrada para la aplicación
+if __name__ == '__main__':
+    # Configurar para que la aplicación se ejecute en el puerto proporcionado por Heroku o en el puerto 5000 de manera local
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
